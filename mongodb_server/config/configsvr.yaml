@@ -1,0 +1,6 @@
+sharding:
+  clusterRole: configsvr
+replication:
+  replSetName: mongors1conf
+storage:
+  dbPath: /data/db

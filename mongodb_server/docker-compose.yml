@@ -1,0 +1,139 @@
+version: "3.8"
+services:
+  mongocfg1:
+    container_name: mongocfg1
+    image: mongo
+    command: mongod --config /config/configsvr.yaml
+    environment:
+      TERM: xterm
+    ports:
+    - "27019:27019"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+#      - ${PWD}/mongo_cluster/mongocfg1:/data/db
+      - ${PWD}/config:/config:ro
+  mongocfg2:
+    container_name: mongocfg2
+    image: mongo
+    command: mongod --config /config/configsvr.yaml
+    environment:
+      TERM: xterm
+    ports:
+      - "27029:27019"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+#      - ${PWD}/mongo_cluster/mongocfg2:/data/db
+      - ${PWD}/config:/config:ro
+  mongocfg3:
+    container_name: mongocfg3
+    image: mongo
+    command: mongod --config /config/configsvr.yaml
+    environment:
+      TERM: xterm
+    ports:
+      - "27039:27019"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+#      - ${PWD}/mongo_cluster/mongocfg3:/data/db
+      - ${PWD}/config:/config:ro
+  mongors1n1:
+    container_name: mongors1n1
+    image: mongo
+    command: mongod --config /config/shardsvr1.yaml
+    environment:
+      TERM: xterm
+    ports:
+      - "27018:27018"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      #      - ${PWD}/mongo_cluster/mongors1n1:/data/db
+      - ${PWD}/config:/config:ro
+  mongors1n2:
+    container_name: mongors1n2
+    image: mongo
+    command: mongod --config /config/shardsvr1.yaml
+    environment:
+      TERM: xterm
+    ports:
+      - "27028:27018"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      #      - ${PWD}/mongo_cluster/mongors1n2:/data/db
+      - ${PWD}/config:/config:ro
+  mongors1n3:
+    container_name: mongors1n3
+    image: mongo
+    command: mongod --config /config/shardsvr1.yaml
+    environment:
+      TERM: xterm
+    ports:
+      - "27038:27018"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      #      - ${PWD}/mongo_cluster/mongors1n3:/data/db
+      - ${PWD}/config:/config:ro
+  mongors2n1:
+    container_name: mongors2n1
+    image: mongo
+    command: mongod --config /config/shardsvr2.yaml
+    environment:
+      TERM: xterm
+    ports:
+      - "27048:27018"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      #      - ${PWD}/mongo_cluster/mongors2n1:/data/db
+      - ${PWD}/config:/config:ro
+  mongors2n2:
+    container_name: mongors2n2
+    image: mongo
+    command: mongod --config /config/shardsvr2.yaml
+    environment:
+      TERM: xterm
+    ports:
+      - "27058:27018"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      #      - ${PWD}/mongo_cluster/mongors2n2:/data/db
+      - ${PWD}/config:/config:ro
+  mongors2n3:
+    container_name: mongors2n3
+    image: mongo
+    command: mongod --config /config/shardsvr2.yaml
+    environment:
+      TERM: xterm
+    ports:
+      - "27068:27018"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      #      - ${PWD}/mongo_cluster/mongors2n3:/data/db
+      - ${PWD}/config:/config:ro
+  mongos1:
+    container_name: mongos1
+    image: mongo
+    depends_on:
+      - mongocfg1
+      - mongocfg2
+      - mongocfg3
+    command: mongos --config /config/mongos.yaml
+    ports:
+      - "27017:27017"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${PWD}/config:/config:ro
+  mongos2:
+    container_name: mongos2
+    image: mongo
+    depends_on:
+      - mongocfg1
+      - mongocfg2
+      - mongocfg3
+    command: mongos --config /config/mongos.yaml
+    ports:
+      - "27027:27017"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${PWD}/config:/config:ro
+networks:
+  default:
+    name: mongo_network
