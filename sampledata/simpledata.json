@@ -1,6 +1,6 @@
 {"_id": 1, "shardingField":  1, "field2":  "Hello", "field3":  "World1First"}
-{"_id": 1, "shardingField":  1, "field2":  "Hello", "field3":  "World1Again"}
-{"_id": 2, "shardingField":  2, "field2":  "Hello", "field3":  "World2"}
-{"_id": 2, "shardingField":  2, "field2":  "Hello", "field3":  "World2"}
-{"_id": 3, "shardingField":  3, "field2":  "Hello", "field3":  "World3"}
-{"_id": 3, "shardingField":  3, "field2":  "Hello", "field3":  "World3"}
+{"_id": 2, "shardingField":  1, "field2":  "Hello", "field3":  "World1Again"}
+{"_id": 3, "shardingField":  2, "field2":  "Hello", "field3":  "World2"}
+{"_id": 4, "shardingField":  2, "field2":  "Hello", "field3":  "World2"}
+{"_id": 5, "shardingField":  3, "field2":  "Hello", "field3":  "World3"}
+{"_id": 6, "shardingField":  3, "field2":  "Hello", "field3":  "World3"}

@@ -19,15 +19,10 @@ object App {
       .master("local[*]")
       .appName("ETLJob")
       .getOrCreate()
-    println("create dataframe")
-    val simpleDf:DataFrame = spark.read.text("/sampledata/simpledata.json")
+    println("create dataframe for " + args(0))
+    val simpleDf:DataFrame = spark.read.text("/sampledata/" + args(0))
     simpleDf.show
-    dataFrameToMongodb("mongos1", "testDb", null, "NonShardedCollection", null, null, null, true, true, simpleDf, spark, true, "value", null, null, false)
-
-    val complexDf:DataFrame = spark.read.text("/sampledata/complexdata.json")
-    complexDf.show
-
-    dataFrameToMongodb("mongos1", "testDb", null, "NonShardedCollection", null, null, null, true, true, complexDf, spark, true, "value", null, null, false)
+    dataFrameToMongodb("mongos1", "testDb", null, args(1), null, null, null, true, true, simpleDf, spark, true, "value", null, null, false)
   }
 
   def dataFrameToMongodb(cluster: String, database: String, authenticationDatabase: String, collection: String, login: String, password: String, replicaset: String, replaceDocuments: Boolean, ordered: Boolean, df: org.apache.spark.sql.DataFrame, sparkSession: org.apache.spark.sql.SparkSession, documentfromjsonfield: Boolean, jsonfield: String, addlSparkOptions: JSONObject, maxBatchSize: String, authenticationEnabled: Boolean): Unit = {

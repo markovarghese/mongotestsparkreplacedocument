@@ -7,8 +7,16 @@ This repo tests
 From the root of the repo, run
 ```shell script
 chmod +x install.sh
-./install.sh
+./install.sh simpledata.json
 ```
+This
+1. spins up a sharded mongodb cluster with 2 collections
+    1. non-sharded collection NonShardedCollection
+    1. sharded collection ShardedCollection with shard field as `shardedField`
+1. writes [simpledata.json](sampledata/simpledata.json) (each line is a document) using 
+    1. mongoimport
+    1. mongodb spark connector
+
 ### Cleanup
 Run 
 ```shell script
