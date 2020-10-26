@@ -45,8 +45,9 @@ object App {
     if (addlSparkOptions != null) {
       sparkOptions = sparkOptions ++ jsonObjectPropertiesToMap(addlSparkOptions)
     }
-    println(sparkOptions)
+    println("WriteConfigMap=",  sparkOptions)
     val writeConfig = WriteConfig(sparkOptions)
+    println("WriteConfig=",  writeConfig)
     if (documentfromjsonfield) {
 
       import com.mongodb.spark._
