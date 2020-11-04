@@ -53,7 +53,8 @@ object App {
       import com.mongodb.spark._
       import sparkSession.implicits._
       val rdd = df.select(jsonfield).map(r => r.getString(0)).rdd
-      rdd.map(Document.parse).saveToMongoDB(writeConfig)
+      //rdd.map(Document.parse).saveToMongoDB(writeConfig) //does not honor replaceDocument
+      MongoSpark.save(rdd.map(Document.parse), writeConfig)
     }
     else {
       MongoSpark.save(df, writeConfig)
