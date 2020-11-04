@@ -61,5 +61,10 @@ RUN curl -sL --retry 3 \
  && mv /usr/$SPARK_PACKAGE $SPARK_HOME \
  && chown -R root:root $SPARK_HOME
 
+# Bootstrap MongoDB's IA certs into truststore
+# Wierdly, it's not necessary to trust CA; and it it not enough toi trust only CA. This is contrary to mongo client behaviour
+COPY test-ia.pem test-ia.pem
+RUN keytool -import -file test-ia.pem -alias mongodbia -keystore mongodb.jks -storepass changeit -noprompt
+
 WORKDIR $SPARK_HOME
 CMD ["bin/spark-class", "org.apache.spark.deploy.master.Master"]

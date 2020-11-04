@@ -1,4 +1,7 @@
 sharding:
   configDB: mongors1conf/mongocfg1:27019,mongocfg2:27019,mongocfg3:27019
 net:
+  ssl:
+    mode: requireSSL
+    PEMKeyFile: /config/ssl/test-server1.pem
   bindIp: 0.0.0.0

@@ -4,3 +4,7 @@ replication:
   replSetName: mongors1
 storage:
   dbPath: /data/db
+net:
+  ssl:
+    mode: requireSSL
+    PEMKeyFile: /config/ssl/test-server1.pem
